@@ -1,4 +1,4 @@
-name: build gl-ax1800
+name: build gl-axt1800
 
 on:
   workflow_dispatch:
