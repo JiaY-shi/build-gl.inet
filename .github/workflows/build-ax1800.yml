@@ -17,7 +17,7 @@ jobs:
         git config --global user.name "aa"
     - name: make 
       run: |
-        ./build.sh ~ glinet_ax1800
+        ./build.sh ~ glinet-ax1800
         cd ~/gl-infra-builder/wlan-ap/openwrt
         make -j$(expr $(nproc) + 1) V=s
         
