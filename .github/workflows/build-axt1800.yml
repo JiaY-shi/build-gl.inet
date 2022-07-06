@@ -14,10 +14,10 @@ jobs:
         sudo apt upgrade -y
         sudo apt install build-essential libncurses5-dev gawk git libssl-dev gettext zlib1g-dev swig unzip time rsync python3 python3-setuptools python3-yaml -y
         git config --global user.email "aa@163.com"
-        git config --global user.name "aa"
+        git config --global user.name "shi"
     - name: make 
       run: |
-        ./build.sh ~ glinet_ax1800
+        ./build.sh ~ glinet_axt1800 
         cd ~/gl-infra-builder/wlan-ap/openwrt
         make -j$(expr $(nproc) + 1) V=s
         

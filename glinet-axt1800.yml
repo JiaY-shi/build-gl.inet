@@ -1,7 +1,7 @@
-profile: glinet_ax1800
+profile: glinet_axt1800
 target: ipq807x
 subtarget: ipq60xx
-description: Build image for the GL.iNET AX1800
+description: Build image for the GL.iNET AXT1800
 image: bin/targets/ipq807x/ipq60xx/openwrt-ipq807x-glinet_ax1800-squashfs-sysupgrade.tar
 feeds:
   - name: ipq807x
