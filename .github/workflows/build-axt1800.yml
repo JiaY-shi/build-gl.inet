@@ -18,8 +18,6 @@ jobs:
     - name: make 
       run: |
         ./build.sh ~ glinet-axt1800 
-        cd ~/gl-infra-builder/wlan-ap/openwrt
-        make -j$(expr $(nproc) + 1) V=s
         
     - name: Organize files
       id: organize

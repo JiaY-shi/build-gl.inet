@@ -33,6 +33,12 @@ python3 setup.py -c config-wlan-ap-5.4.yml
 cd wlan-ap/openwrt
 ./scripts/gen_config.py $profile glinet_depends
 
+git clone https://github.com/gl-inet/glinet.git $base/glinet
+
 ./scripts/feeds update -a 
 ./scripts/feeds install -a
 make defconfig
+
+
+make -j$(expr $(nproc) + 1) GL_PKGDIR=$base/glinet/ipq60xx/ V=s
+
