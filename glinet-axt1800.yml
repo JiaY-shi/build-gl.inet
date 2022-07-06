@@ -27,12 +27,10 @@ packages:
   - wireless-regdb
   - wpad-openssl
   - wget-ssl
-  - luci-app-adguardhome
   - luci-app-ssr-plus
   - luci-app-ddns
   - ddns-scripts
   - ddns-scripts-services
-  - adguardhome
   - ddns-scripts_aliyun
   - luci-app-uhttpd
   - dnsmasq-full
@@ -77,7 +75,6 @@ diffconfig: |
   CONFIG_PACKAGE_wpad-basic=n
   CONFIG_PACKAGE_wpad=n
   CONFIG_PACKAGE_dnsmasq=n
-  CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn=y
   CONFIG_PACKAGE_luci-i18n-ddns-zh-cn=y
   CONFIG_LUCI_LANG_zh_Hans=y
   CONFIG_BUSYBOX_CUSTOM=y
