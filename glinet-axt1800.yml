@@ -16,7 +16,7 @@ feeds:
     revision: 024abffb64c29f85b088075ed7d37ad954234788
   - name: gl_feeds_common
     uri: https://github.com/gl-inet/gl-feeds.git
-    revision: 3b171fae6bf8e57fef60b77e166eb95473658bd5
+    revision: db2ff2799d020794109f7d15038c09015b6088ab
 include:
   - wifi-ax
 
