@@ -35,7 +35,6 @@ else
         python3 setup.py -c config-wlan-ap.yml
 fi
 
-python3 setup.py -c config-wlan-ap-5.4.yml
 
 cd wlan-ap/openwrt
 ./scripts/gen_config.py $profile glinet_depends custom
