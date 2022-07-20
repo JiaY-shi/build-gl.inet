@@ -18,6 +18,9 @@ packages:
   - wireguard
   - luci-app-eqos
   - wireguard-tools
+  - default-settings
+
+
 
 diffconfig: |
   CONFIG_PACKAGE_wpad-basic=n

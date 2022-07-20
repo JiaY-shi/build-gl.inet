@@ -1,0 +1,275 @@
+#!/bin/sh
+
+#config system
+uci set system.@system[0].timezone=CST-8
+uci set system.@system[0].zonename=Asia/Shanghai
+uci del system.led_wan
+uci commit system
+
+# config wireless
+uci set wireless.radio0.cell_density='0'
+uci set wireless.default_radio0.ssid='openwrt'
+uci set wireless.default_radio0.encryption='psk2'
+uci set wireless.default_radio0.key='12345678'
+uci set wireless.radio1.cell_density='0'
+uci set wireless.default_radio1.ssid='openwrt'
+uci set wireless.default_radio1.encryption='psk2'
+uci set wireless.default_radio1.key='12345678'
+uci set wireless.default_radio1.macfilter='deny'
+uci commit wireless
+sed -i '/option disabled/d' /etc/config/wireless
+sed -i '/set wireless.radio${devidx}.disabled/d' /lib/wifi/mac80211.sh
+
+#config network
+uci set network.lan.ipaddr="192.168.0.1"
+uci set network.wan.proto="pppoe" 
+uci set network.wan.username=""
+uci set network.wan.password=""
+uci set network.globals.ula_prefix=""
+uci set network.@device[0].multicast_to_unicast='0'
+uci commit network
+
+
+uci del uhttpd.main.listen_http
+uci del uhttpd.main.listen_https
+uci add_list uhttpd.main.listen_http=[::]:80
+uci add_list uhttpd.main.listen_http=0.0.0.0:80
+uci add_list uhttpd.main.listen_https=[::]:443
+uci add_list uhttpd.main.listen_https=0.0.0.0:443
+uci set uhttpd.main.rfc1918_filter=0
+uci commit uhttpd
+
+uci set dropbear.@dropbear[0].Port=22
+uci set dropbear.@dropbear[0].PasswordAuth=on
+uci commit dropbear
+
+uci del dhcp.@dnsmasq[0].address
+uci add_list dhcp.@dnsmasq[0].address='/route.lan/192.168.0.1'
+uci commit dhcp
+
+
+
+
+#root 
+
+
+
+#config ddns
+
+
+#config firewall
+uci del firewall.@zone[0].network
+uci add_list firewall.@zone[0].network='lan'
+uci add_list firewall.@zone[0].network='wg'
+uci commit firewall
+
+
+
+
+
+
+echo 'bind_host: 0.0.0.0
+bind_port: 3000
+beta_bind_port: 0
+users:
+- name: root
+  password: 
+auth_attempts: 5
+block_auth_min: 15
+http_proxy: ""
+language: zh-cn
+debug_pprof: false
+web_session_ttl: 720
+dns:
+  bind_hosts:
+  - 0.0.0.0
+  port: 11553
+  statistics_interval: 1
+  querylog_enabled: false
+  querylog_file_enabled: false
+  querylog_interval: 6h
+  querylog_size_memory: 1000
+  anonymize_client_ip: false
+  protection_enabled: true
+  blocking_mode: default
+  blocking_ipv4: ""
+  blocking_ipv6: ""
+  blocked_response_ttl: 60
+  parental_block_host: family-block.dns.adguard.com
+  safebrowsing_block_host: standard-block.dns.adguard.com
+  ratelimit: 0
+  ratelimit_whitelist: []
+  refuse_any: false
+  upstream_dns:
+  - 119.29.29.29
+  - 114.114.114.114
+  - 223.6.6.6
+  - 2400:3200::1
+  - 2001:4860:4860::8888
+  upstream_dns_file: ""
+  bootstrap_dns:
+  - 112.65.184.255
+  - 210.22.84.3
+  - 2408:8888:0:8888::8
+  - 2408:8899:0:8899::8
+  all_servers: false
+  fastest_addr: false
+  fastest_timeout: 1s
+  allowed_clients:
+  - 192.168.0.0/24
+  - 127.0.0.1
+  - 0.0.0.0
+  - fd1b:f0df:ced7::/64
+  - ::1
+  disallowed_clients:
+  - 125.124.239.233
+  blocked_hosts:
+  - version.bind
+  - id.server
+  - hostname.bind
+  trusted_proxies:
+  - 127.0.0.0/8
+  - ::1/128
+  cache_size: 4194304
+  cache_ttl_min: 0
+  cache_ttl_max: 0
+  cache_optimistic: true
+  bogus_nxdomain: []
+  aaaa_disabled: false
+  enable_dnssec: false
+  edns_client_subnet: false
+  max_goroutines: 300
+  ipset: []
+  filtering_enabled: true
+  filters_update_interval: 1
+  parental_enabled: false
+  safesearch_enabled: true
+  safebrowsing_enabled: false
+  safebrowsing_cache_size: 1048576
+  safesearch_cache_size: 1048576
+  parental_cache_size: 1048576
+  cache_time: 30
+  rewrites: []
+  blocked_services: []
+  upstream_timeout: 10s
+  local_domain_name: lan
+  resolve_clients: false
+  use_private_ptr_resolvers: false
+  local_ptr_upstreams: []
+tls:
+  enabled: false
+  server_name: ""
+  force_https: true
+  port_https: 9443
+  port_dns_over_tls: 9853
+  port_dns_over_quic: 9784
+  port_dnscrypt: 0
+  dnscrypt_config_file: ""
+  allow_unencrypted_doh: false
+  strict_sni_check: false
+  certificate_chain: ""
+  private_key: ""
+  certificate_path: 
+  private_key_path: 
+filters:
+- enabled: true
+  url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+  name: AdGuard DNS filter
+  id: 1628750870
+- enabled: true
+  url: https://anti-ad.net/easylist.txt
+  name: anti
+  id: 1628750871
+- enabled: true
+  url: https://neodev.team/lite_adblocker
+  name: lite_adblocker
+  id: 1645339240
+- enabled: true
+  url: https://raw.hellogithub.com/hosts
+  name: github
+  id: 1645339241
+whitelist_filters: []
+user_rules:
+- ""
+dhcp:
+  enabled: false
+  interface_name: ""
+  dhcpv4:
+    gateway_ip: ""
+    subnet_mask: ""
+    range_start: ""
+    range_end: ""
+    lease_duration: 86400
+    icmp_timeout_msec: 1000
+    options: []
+  dhcpv6:
+    range_start: ""
+    lease_duration: 86400
+    ra_slaac_only: false
+    ra_allow_slaac: false
+clients: []
+log_compress: false
+log_localtime: false
+log_max_backups: 0
+log_max_size: 100
+log_max_age: 3
+log_file: ""
+verbose: false
+os:
+  group: ""
+  user: ""
+  rlimit_nofile: 0
+schema_version: 12' > /etc/adguardhome.yaml
+
+
+
+echo "config AdGuardHome 'AdGuardHome'
+	option httpport '3000'
+	option configpath '/etc/adguardhome.yaml'
+	option workdir '/etc/AdGuardHome'
+	option logfile '/tmp/AdGuardHome.log'
+	option verbose '0'
+	option binpath '/usr/bin/AdGuardHome'
+	option redirect 'dnsmasq-upstream'
+	option waitonboot '1'
+	option ucitracktest '1'
+	option enabled '1'
+	list old_redirect 'dnsmasq-upstream'
+	list old_port '11553'
+	list old_enabled '1'" > /etc/config/AdGuardHome 
+
+echo "[common]
+bind_port = 17000
+vhost_http_port = 10443
+vhost_https_port = 10080
+vhost_http_timeout = 60
+dashboard_port = 17001
+dashboard_user = root
+dashboard_pwd = 12345678
+log_level = error
+token = openwrt" > /var/etc/frps.ini
+
+echo "config init
+	option stdout '1'
+	option stderr '1'
+	option respawn '1'
+	option user 'root'
+	option group 'root'
+
+config conf 'common'
+	option bind_port '17000'
+	option vhost_http_port '10443'
+	option vhost_https_port '10080'
+	option vhost_http_timeout '60'
+	option dashboard_port '17001'
+	option dashboard_user 'root'
+	option dashboard_pwd '12345678'
+	option log_level 'error'
+	option token 'openwrt'" > /etc/config/frps
+
+
+echo "10 5 * * 6 sleep 70 && touch /etc/banner && reboot" > /etc/crontabs/root
+
+
+
+exit 0
