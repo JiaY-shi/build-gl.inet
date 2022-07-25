@@ -13,12 +13,12 @@ on:
         - target_wlan_ap-gl-axt1800
         - target_wlan_ap-gl-ax1800-5-4
         - target_wlan_ap-gl-axt1800-5-4
-    glinet:
+        
+      ui:
         description: '是否包含官方UI'
-        required: false 
+        required: false
         type: boolean
-
-
+        
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
         git config --global user.name "aa"
     - name: make 
       run: |
-        ./build.sh ~ ${{ inputs.device }} ${{ inputs.glinet }}
+        ./build.sh ~ ${{ inputs.device }} ${{ inputs.ui }}
         
     - name: Organize files
       id: organize
