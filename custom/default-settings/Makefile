@@ -32,9 +32,6 @@ endef
 define Package/default-settings/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./files/zzz-default-settings $(1)/etc/uci-defaults/99-default-settings
-	$(INSTALL_DIR) $(1)/etc/ssl/certs
-	$(INSTALL_BIN) ./files/netshi.cn.key $(1)/etc/ssl/certs/netshi.cn.key
-	$(INSTALL_BIN) ./files/netshi.cn.cer $(1)/etc/ssl/certs/netshi.cn.cer
 endef
 
 $(eval $(call BuildPackage,default-settings))
