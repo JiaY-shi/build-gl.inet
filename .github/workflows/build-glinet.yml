@@ -15,7 +15,7 @@ on:
         - target_wlan_ap-gl-axt1800-5-4
     glinet:
         description: '是否包含官方UI'
-        required: true 
+        required: false 
         type: boolean
 
 
