@@ -1,4 +1,4 @@
-name: build gl-ax1800-4.4
+name: build gl.inet
 
 on:
   workflow_dispatch:
