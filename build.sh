@@ -36,9 +36,9 @@ cd $base/gl-infra-builder
 #setup
 
 if [[ $profile == *5-4* ]]; then
-        python3 setup.py -c config-wlan-ap-5.4.yml
+        python3 setup.py -c config/config-wlan-ap-5.4.yml
 else
-        python3 setup.py -c config-wlan-ap.yml
+        python3 setup.py -c config/config-wlan-ap.yml
 fi
 
 
