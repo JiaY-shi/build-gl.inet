@@ -46,7 +46,7 @@ cd wlan-ap/openwrt
 if [[ $ui == true  ]]; then 
 	./scripts/gen_config.py $profile glinet_depends custom
 else
-	./scripts/gen_config.py $profile openwrt_common custom
+	./scripts/gen_config.py $profile openwrt_common luci custom
 fi
 
 
