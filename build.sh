@@ -49,6 +49,9 @@ else
 	./scripts/gen_config.py $profile openwrt_common luci custom
 fi
 
+# fix helloword build error
+rm -rf feeds/packages/lang/golang
+svn co https://github.com/openwrt/packages/branches/openwrt-22.03/lang/golang feeds/packages/lang/golang
 
 git clone https://github.com/gl-inet/glinet4.x.git $base/glinet
 ./scripts/feeds update -a 
