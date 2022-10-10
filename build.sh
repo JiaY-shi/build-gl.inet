@@ -37,6 +37,8 @@ cd $base/gl-infra-builder
 
 if [[ $profile == *5-4* ]]; then
         python3 setup.py -c configs/config-wlan-ap-5.4.yml
+elif [[ $profile == *a1300* ]]; then
+		python3 setup.py -c configs/config-21.02.2.yml
 else
         python3 setup.py -c configs/config-wlan-ap.yml
 fi
@@ -58,7 +60,7 @@ git clone https://github.com/gl-inet/glinet4.x.git $base/glinet
 ./scripts/feeds install -a
 make defconfig
 
-if [[ $ui == true  ]]; then 
+if [[ $ui == true  ]] && [[ $profile == *wlan_ap* ]]; then 
 	make -j$(expr $(nproc) + 1) GL_PKGDIR=$base/glinet/ipq60xx/ V=s
 else
 	make -j$(expr $(nproc) + 1)  V=s
