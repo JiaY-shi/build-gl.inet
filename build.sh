@@ -44,9 +44,9 @@ else
 fi
 
 if [[ $profile == *wlan_ap*  ]]; then
-	 ln -s wlan-ap/openwrt ~/openwrt
+	ln -s $base/gl-infra-builder/wlan-ap/openwrt ~/openwrt
 else
-	ln -s openwrt-21.02/openwrt-21.02.2 ~/openwrt
+	ln -s $base/gl-infra-builder/openwrt-21.02/openwrt-21.02.2 ~/openwrt
 fi
 cd ~/openwrt
 
