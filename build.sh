@@ -43,9 +43,15 @@ else
         python3 setup.py -c configs/config-wlan-ap.yml
 fi
 
+if [[ $profile == *wlan_ap*  ]]; then
+	 ln -s wlan-ap/openwrt ~/openwrt
+else
+	ln -s openwrt-21.02/openwrt-21.02.2 ~/openwrt
+fi
+cd ~/openwrt
 
-cd wlan-ap/openwrt
-if [[ $ui == true  ]]; then 
+
+if [[ $ui == true  ]] && [[ $profile == *wlan_ap* ]]; then 
 	./scripts/gen_config.py $profile glinet_depends custom
 else
 	./scripts/gen_config.py $profile openwrt_common luci custom
