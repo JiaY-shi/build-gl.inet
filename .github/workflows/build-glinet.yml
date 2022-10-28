@@ -14,9 +14,10 @@ on:
         - target_wlan_ap-gl-ax1800-5-4
         - target_wlan_ap-gl-axt1800-5-4
         - target_ipq40xx_gl-a1300
+        - target_mt7981_gl-mt2500
         
       ui:
-        description: '是否包含官方UI (GL-A1300不支持)'
+        description: '是否包含官方UI (目前仅支持IPQ60XX系列)'
         required: false
         type: boolean
         
@@ -56,7 +57,7 @@ jobs:
       id: tag
       if: true && !failure() && !cancelled()
       run: |
-        echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M")"
+        echo "::set-output name=release_tag::${{inputs.device}}.${{ inputs.ui }}.$(date +"%Y.%m.%d-%H%M")"
         echo "::set-output name=status::success"
         
     - name: Upload firmware to release
