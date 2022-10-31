@@ -72,9 +72,9 @@ case $profile in
         build_firmware 
     ;;
 	target_mt7981_gl-mt2500)
-		python3 setup.py -c configs/config-mt7981-21.02.3.yml
+		python3 setup.py -c configs/config-mt798x-7.6.6.1.yml
 		ln -s $base/gl-infra-builder/mt7981 ~/openwrt && cd ~/openwrt	
-		./scripts/gen_config.py $profile  custom
+		./scripts/gen_config.py $profile luci custom
 		build_firmware
 	;;
 esac
