@@ -15,7 +15,9 @@ on:
         - target_wlan_ap-gl-axt1800-5-4
         - target_ipq40xx_gl-a1300
         - target_mt7981_gl-mt2500
-        
+        - target_siflower_gl-sf1200
+        - target_siflower_gl-sft1200
+
       ui:
         description: '是否包含官方UI (目前仅支持IPQ60XX系列)'
         required: false

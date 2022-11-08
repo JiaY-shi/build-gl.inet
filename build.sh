@@ -77,5 +77,12 @@ case $profile in
 		./scripts/gen_config.py $profile luci custom
 		build_firmware
 	;;
+	target_siflower_gl-sf1200|\
+	target_siflower_gl-sft1200)
+		python3 setup.py -c configs/config-siflower-18.x.yml
+		ln -s $base/gl-infra-builder/openwrt-18.06/siflower/openwrt-18.06 ~/openwrt && cd ~/openwrt
+		./scripts/gen_config.py $profile  custom
+		build_firmware
+	;;
 esac
 
