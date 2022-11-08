@@ -32,7 +32,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt upgrade -y
-        sudo apt install build-essential libncurses5-dev gawk git libssl-dev gettext zlib1g-dev swig unzip time rsync python3 python3-setuptools python3-yaml subversion -y
+        sudo apt install python build-essential libncurses5-dev gawk git libssl-dev gettext zlib1g-dev swig unzip time rsync python3 python3-setuptools python3-yaml subversion -y
         git config --global user.email "aa@163.com"
         git config --global user.name "aa"
     - name: make 
@@ -43,8 +43,7 @@ jobs:
       id: organize
       if: true && !failure() && !cancelled()
       run: |
-        cd ~/openwrt/bin/targets/*/*
-        rm -rf packages
+        cd ~/firmware
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT 
     - name: Upload firmware directory

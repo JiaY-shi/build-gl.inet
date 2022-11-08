@@ -46,6 +46,15 @@ function build_firmware(){
     fi
 }
 
+function copy_file(){
+	patch=$1
+	mkdir ~/firmware
+	mkdir ~/packages
+	cd $patch
+	rm -rf packages
+	cp -rf ./* ~/firmware
+}
+
 case $profile in 
     target_wlan_ap-gl-ax1800|\
     target_wlan_ap-gl-axt1800|\
@@ -64,18 +73,21 @@ case $profile in
 	        ./scripts/gen_config.py $profile openwrt_common luci custom
         fi
         build_firmware $ui
+		copy_file ~/openwrt/bin/targets/*/*
     ;;
     target_ipq40xx_gl-a1300)
         python3 setup.py -c configs/config-21.02.2.yml
         ln -s $base/gl-infra-builder/openwrt-21.02/openwrt-21.02.2 ~/openwrt && cd ~/openwrt
         ./scripts/gen_config.py $profile openwrt_common luci custom
         build_firmware 
+		copy_file ~/openwrt/bin/targets/*/*
     ;;
 	target_mt7981_gl-mt2500)
 		python3 setup.py -c configs/config-mt798x-7.6.6.1.yml
 		ln -s $base/gl-infra-builder/mt7981 ~/openwrt && cd ~/openwrt	
 		./scripts/gen_config.py $profile luci custom
 		build_firmware
+		copy_file ~/openwrt/bin/targets/*/*
 	;;
 	target_siflower_gl-sf1200|\
 	target_siflower_gl-sft1200)
@@ -83,6 +95,7 @@ case $profile in
 		ln -s $base/gl-infra-builder/openwrt-18.06/siflower/openwrt-18.06 ~/openwrt && cd ~/openwrt
 		./scripts/gen_config.py $profile  custom
 		build_firmware
+		copy_file ~/openwrt/bin/targets/*
 	;;
 esac
 
