@@ -19,7 +19,7 @@ on:
         - target_siflower_gl-sft1200
 
       ui:
-        description: '是否包含官方UI (目前仅支持IPQ60XX系列)'
+        description: '是否包含官方UI (目前支持IPQ60XX系列和MT2500)'
         required: false
         type: boolean
         

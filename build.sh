@@ -33,14 +33,15 @@ cd $base/gl-infra-builder
 function build_firmware(){
     cd ~/openwrt
     need_gl_ui=$1
-    # fix helloword build error
+    ui_path=$2
+	# fix helloword build error
     rm -rf feeds/packages/lang/golang
     svn co https://github.com/openwrt/packages/branches/openwrt-22.03/lang/golang feeds/packages/lang/golang
     #install feed 
     ./scripts/feeds update -a && ./scripts/feeds install -a && make defconfig
     #build 
     if [[ $need_gl_ui == true  ]]; then 
-        make -j$(expr $(nproc) + 1) GL_PKGDIR=~/glinet/ipq60xx/ V=s
+        make -j$(expr $(nproc) + 1) GL_PKGDIR=~/glinet/$ui_path/ V=s
     else
         make -j$(expr $(nproc) + 1)  V=s
     fi
@@ -72,7 +73,7 @@ case $profile in
         else
 	        ./scripts/gen_config.py $profile openwrt_common luci custom
         fi
-        build_firmware $ui
+        build_firmware $ui ipq60xx
 		copy_file ~/openwrt/bin/targets/*/*
     ;;
     target_ipq40xx_gl-a1300)
@@ -85,15 +86,20 @@ case $profile in
 	target_mt7981_gl-mt2500)
 		python3 setup.py -c configs/config-mt798x-7.6.6.1.yml
 		ln -s $base/gl-infra-builder/mt7981 ~/openwrt && cd ~/openwrt	
-		./scripts/gen_config.py $profile luci custom
-		build_firmware
+		if [[ $ui == true  ]]; then
+            ./scripts/gen_config.py $profile glinet_depends custom
+            git clone https://github.com/gl-inet/glinet4.x.git ~/glinet
+        else
+            ./scripts/gen_config.py $profile custom
+        fi
+		build_firmware $ui mt7981
 		copy_file ~/openwrt/bin/targets/*/*
 	;;
 	target_siflower_gl-sf1200|\
 	target_siflower_gl-sft1200)
 		python3 setup.py -c configs/config-siflower-18.x.yml
 		ln -s $base/gl-infra-builder/openwrt-18.06/siflower/openwrt-18.06 ~/openwrt && cd ~/openwrt
-		./scripts/gen_config.py $profile  custom
+		./scripts/gen_config.py $profile custom
 		build_firmware
 		copy_file ~/openwrt/bin/targets/*
 	;;
