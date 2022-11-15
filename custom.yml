@@ -4,8 +4,8 @@ feeds:
   - name: helloworld
     uri: https://github.com/fw876/helloworld.git
     branch: master
-  - name: openclash
-    uri: https://github.com/vernesong/OpenClash.git
+  - name: openwrt_packages
+    uri: https://github.com/kenzok8/openwrt-packages.git
     branch: master
 packages:
   - luci-app-ssr-plus
@@ -23,13 +23,16 @@ packages:
   - wireguard-tools
   - wget-ssl
   - luci-app-openclash
+  - luci-app-passwall2
+  - luci-theme-argon
+  - luci-app-argon-config
+  - luci-app-aliyundrive-webdav
   - vsftpd
   - openssh-sftp-server
   - luci-app-ttyd
   - luci-i18n-ttyd-zh-cn
   - luci-compat
   - luci-lib-ipkg
-  - luci-app-adblock
   - comgt
   - chat
   - uqmi
