@@ -4,6 +4,9 @@ feeds:
   - name: helloworld
     uri: https://github.com/fw876/helloworld.git
     branch: master
+  - name: openclash
+    uri: https://github.com/vernesong/OpenClash.git
+    branch: master
 packages:
   - luci-app-ssr-plus
   - luci-app-ddns
@@ -18,6 +21,44 @@ packages:
   - wireguard
   - luci-app-eqos
   - wireguard-tools
+  - wget-ssl
+  - luci-app-openclash
+  - vsftpd
+  - openssh-sftp-server
+  - luci-app-ttyd
+  - luci-i18n-ttyd-zh-cn
+  - luci-compat
+  - luci-lib-ipkg
+  - luci-app-adblock
+  - comgt
+  - chat
+  - uqmi
+  - blkid
+  - ntfs-3g
+  - ntfs-3g-utils
+  - dosfstools
+  - e2fsprogs
+  - usbmuxd
+  - luci-app-adguardhome
+  - adguardhome
+  - kmod-usb-storage
+  - kmod-usb-uhci
+  - kmod-usb2
+  - kmod-usb-ohci
+  - kmod-usb-acm
+  - kmod-usb-net-huawei-cdc-ncm
+  - kmod-usb-serial
+  - kmod-usb-serial-option
+  - kmod-usb-serial-wwan
+  - kmod-usb-net-cdc-ether
+  - kmod-usb-net-qmi-wwan
+  - kmod-fs-ext4
+  - kmod-fs-ntfs
+  - kmod-fs-vfat
+  - kmod-fs-exfat
+  - kmod-usb-net-ipheth
+  - kmod-usb-net-rndis
+  - kmod-usb-serial-ch341
 
 
 
@@ -26,6 +67,7 @@ diffconfig: |
   CONFIG_PACKAGE_wpad=n
   CONFIG_PACKAGE_dnsmasq=n
   CONFIG_PACKAGE_luci-i18n-ddns-zh-cn=y
+  CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn=y
   CONFIG_LUCI_LANG_zh_Hans=y
   CONFIG_BUSYBOX_CUSTOM=y
   CONFIG_BUSYBOX_CONFIG_FEATURE_FLOAT_SLEEP=y
