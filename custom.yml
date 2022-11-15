@@ -23,6 +23,14 @@ packages:
   - wireguard-tools
   - wget-ssl
   - luci-theme-argon
+  - luci-app-openclash
+  - luci-app-aliyundrive-webdav
+  - vsftpd
+  - openssh-sftp-server
+  - luci-app-ttyd
+  - luci-i18n-ttyd-zh-cn
+  - luci-compat
+  - luci-lib-ipkg
 
 
 diffconfig: |
