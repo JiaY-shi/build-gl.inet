@@ -4,7 +4,7 @@ feeds:
   - name: helloworld
     uri: https://github.com/fw876/helloworld.git
     branch: master
-  - name: openwrt_packages
+  - name: owpackages
     uri: https://github.com/kenzok8/openwrt-packages.git
     branch: master
 packages:
@@ -33,35 +33,8 @@ packages:
   - luci-i18n-ttyd-zh-cn
   - luci-compat
   - luci-lib-ipkg
-  - comgt
-  - chat
-  - uqmi
-  - blkid
-  - ntfs-3g
-  - ntfs-3g-utils
-  - dosfstools
-  - e2fsprogs
-  - usbmuxd
   - luci-app-adguardhome
   - adguardhome
-  - kmod-usb-storage
-  - kmod-usb-uhci
-  - kmod-usb2
-  - kmod-usb-ohci
-  - kmod-usb-acm
-  - kmod-usb-net-huawei-cdc-ncm
-  - kmod-usb-serial
-  - kmod-usb-serial-option
-  - kmod-usb-serial-wwan
-  - kmod-usb-net-cdc-ether
-  - kmod-usb-net-qmi-wwan
-  - kmod-fs-ext4
-  - kmod-fs-ntfs
-  - kmod-fs-vfat
-  - kmod-fs-exfat
-  - kmod-usb-net-ipheth
-  - kmod-usb-net-rndis
-  - kmod-usb-serial-ch341
 
 
 
