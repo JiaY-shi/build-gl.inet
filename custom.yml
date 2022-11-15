@@ -22,20 +22,7 @@ packages:
   - luci-app-eqos
   - wireguard-tools
   - wget-ssl
-  - luci-app-openclash
-  - luci-app-passwall2
   - luci-theme-argon
-  - luci-app-argon-config
-  - luci-app-aliyundrive-webdav
-  - vsftpd
-  - openssh-sftp-server
-  - luci-app-ttyd
-  - luci-i18n-ttyd-zh-cn
-  - luci-compat
-  - luci-lib-ipkg
-  - luci-app-adguardhome
-  - adguardhome
-
 
 
 diffconfig: |
@@ -43,7 +30,6 @@ diffconfig: |
   CONFIG_PACKAGE_wpad=n
   CONFIG_PACKAGE_dnsmasq=n
   CONFIG_PACKAGE_luci-i18n-ddns-zh-cn=y
-  CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn=y
   CONFIG_LUCI_LANG_zh_Hans=y
   CONFIG_BUSYBOX_CUSTOM=y
   CONFIG_BUSYBOX_CONFIG_FEATURE_FLOAT_SLEEP=y
