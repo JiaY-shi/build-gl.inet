@@ -106,7 +106,7 @@ case $profile in
 	target_ramips_gl-mt1300)
 		python3 setup.py -c configs/config-22.03.0.yml
 		ln -s $base/gl-infra-builder/openwrt-22.03/openwrt-22.03.0 ~/openwrt && cd ~/openwrt
-		./scripts/gen_config.py $profile custom
+		./scripts/gen_config.py $profile luci custom
 		build_firmware
 		copy_file ~/openwrt/bin/targets/*/*
 	;;
