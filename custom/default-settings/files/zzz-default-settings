@@ -21,12 +21,9 @@ sed -i '/option disabled/d' /etc/config/wireless
 sed -i '/set wireless.radio${devidx}.disabled/d' /lib/wifi/mac80211.sh
 
 #config network
-uci set network.lan.ipaddr="192.168.0.1"
 uci set network.wan.proto="pppoe" 
 uci set network.wan.username=""
 uci set network.wan.password=""
-uci set network.globals.ula_prefix=""
-uci set network.@device[0].multicast_to_unicast='0'
 uci commit network
 
 
@@ -42,30 +39,6 @@ uci commit uhttpd
 uci set dropbear.@dropbear[0].Port=22
 uci set dropbear.@dropbear[0].PasswordAuth=on
 uci commit dropbear
-
-uci del dhcp.@dnsmasq[0].address
-uci add_list dhcp.@dnsmasq[0].address='/route.lan/192.168.0.1'
-uci commit dhcp
-
-
-
-
-#root 
-
-
-
-#config ddns
-
-
-#config firewall
-uci del firewall.@zone[0].network
-uci add_list firewall.@zone[0].network='lan'
-uci add_list firewall.@zone[0].network='wg'
-uci commit firewall
-
-
-
-
 
 
 echo 'bind_host: 0.0.0.0
@@ -269,7 +242,5 @@ config conf 'common'
 
 
 echo "10 5 * * 6 sleep 70 && touch /etc/banner && reboot" > /etc/crontabs/root
-
-
 
 exit 0
