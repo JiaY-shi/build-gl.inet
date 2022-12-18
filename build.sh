@@ -48,12 +48,13 @@ function build_firmware(){
 }
 
 function copy_file(){
-	patch=$1
+	path=$1
 	mkdir ~/firmware
 	mkdir ~/packages
-	cd $patch
+	cd $path
 	rm -rf packages
 	cp -rf ./* ~/firmware
+    cp -rf ~/openwrt/bin/packages/* ~/packages
 }
 
 case $profile in 

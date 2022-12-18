@@ -46,6 +46,8 @@ jobs:
       run: |
         cd ~/firmware
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        cd ~/packages
+        echo "PACKAGES=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT 
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
@@ -53,7 +55,14 @@ jobs:
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-            
+
+    - name: Upload packages directory
+      uses: actions/upload-artifact@main
+      if: steps.organize.outputs.status == 'success' && !cancelled() && !failure()
+      with:
+        name: OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.PACKAGES }}
+
     - name: Generate release tag
       id: tag
       if: true && !failure() && !cancelled()
