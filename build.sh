@@ -84,7 +84,8 @@ case $profile in
         build_firmware 
 		copy_file ~/openwrt/bin/targets/*/*
     ;;
-	target_mt7981_gl-mt2500)
+	target_mt7981_gl-mt2500|\
+    target_mediatek_gl-mt3000)
 		python3 setup.py -c configs/config-mt798x-7.6.6.1.yml
 		ln -s $base/gl-infra-builder/mt7981 ~/openwrt && cd ~/openwrt	
 		if [[ $ui == true  ]]; then
