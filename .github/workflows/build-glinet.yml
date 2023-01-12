@@ -21,7 +21,7 @@ on:
         - target_ramips_gl-mt1300
 
       ui:
-        description: '是否包含官方UI (目前支持IPQ60XX系列和MT2500)'
+        description: '是否包含官方UI (目前支持IPQ60XX系列、GL-A1300和GL-MT2500)'
         required: false
         type: boolean
         

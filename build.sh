@@ -80,8 +80,13 @@ case $profile in
     target_ipq40xx_gl-a1300)
         python3 setup.py -c configs/config-21.02.2.yml
         ln -s $base/gl-infra-builder/openwrt-21.02/openwrt-21.02.2 ~/openwrt && cd ~/openwrt
-        ./scripts/gen_config.py $profile openwrt_common luci custom
-        build_firmware 
+        if [[ $ui == true  ]]; then
+            ./scripts/gen_config.py $profile glinet_depends custom
+            git clone https://github.com/gl-inet/glinet4.x.git ~/glinet
+        else
+            ./scripts/gen_config.py $profile openwrt_common luci  custom
+        fi
+		build_firmware $ui ipq40xx
 		copy_file ~/openwrt/bin/targets/*/*
     ;;
 	target_mt7981_gl-mt2500|\
