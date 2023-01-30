@@ -96,6 +96,11 @@ case $profile in
 		if [[ $ui == true  ]]; then
             ./scripts/gen_config.py $profile glinet_depends glinet_nas custom
             git clone https://github.com/gl-inet/glinet4.x.git ~/glinet
+            if [[ $profile == *mt3000* ]]; then
+                cp -rf ~/glinet/pkg_config/gl_pkg_config_mt7981_mt3000.mk ~/glinet/mt7981/gl_pkg_config.mk
+            else
+                cp -rf ~/glinet/pkg_config/gl_pkg_config_mt7981_mt2500.mk ~/glinet/mt7981/gl_pkg_config.mk
+            fi
         else
             ./scripts/gen_config.py $profile glinet_nas custom
         fi
@@ -118,4 +123,3 @@ case $profile in
 		copy_file ~/openwrt/bin/targets/*/*
 	;;
 esac
-
