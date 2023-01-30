@@ -5,17 +5,17 @@ profile=$2
 ui=$3
 echo $base
 if [ ! -e "$base" ]; then
-	echo "Please enter base folder"
-	exit 1
+    echo "Please enter base folder"
+    exit 1
 else
-	if [ ! -d $base ]; then 
-		echo "Openwrt base folder not exist"
-		exit 1
-	fi
+    if [ ! -d $base ]; then 
+        echo "Openwrt base folder not exist"
+        exit 1
+    fi
 fi
 
 if [ ! -n "$profile" ]; then
-	profile=target_wlan_ap-gl-ax1800
+    profile=target_wlan_ap-gl-ax1800
 fi
 
 if [ ! -n "$ui" ]; then
@@ -34,7 +34,7 @@ function build_firmware(){
     cd ~/openwrt
     need_gl_ui=$1
     ui_path=$2
-	# fix helloword build error
+    # fix helloword build error
     rm -rf feeds/packages/lang/golang
     svn co https://github.com/openwrt/packages/branches/openwrt-22.03/lang/golang feeds/packages/lang/golang
     #install feed 
@@ -45,16 +45,18 @@ function build_firmware(){
     else
         make -j$(expr $(nproc) + 1)  V=s
     fi
+    return
 }
 
 function copy_file(){
-	path=$1
-	mkdir ~/firmware
-	mkdir ~/packages
-	cd $path
-	rm -rf packages
-	cp -rf ./* ~/firmware
+    path=$1
+    mkdir ~/firmware
+    mkdir ~/packages
+    cd $path
+    rm -rf packages
+    cp -rf ./* ~/firmware
     cp -rf ~/openwrt/bin/packages/* ~/packages
+    return
 }
 
 case $profile in 
@@ -69,13 +71,12 @@ case $profile in
         fi
         ln -s $base/gl-infra-builder/wlan-ap/openwrt ~/openwrt && cd ~/openwrt
         if [[ $ui == true  ]]; then 
-	        ./scripts/gen_config.py $profile glinet_depends glinet_nas custom
+            ./scripts/gen_config.py $profile glinet_depends glinet_nas custom
             git clone https://github.com/gl-inet/glinet4.x.git ~/glinet
         else
-	        ./scripts/gen_config.py $profile openwrt_common glinet_nas luci custom
+            ./scripts/gen_config.py $profile openwrt_common glinet_nas luci custom
         fi
-        build_firmware $ui ipq60xx
-		copy_file ~/openwrt/bin/targets/*/*
+        build_firmware $ui ipq60xx && copy_file ~/openwrt/bin/targets/*/*
     ;;
     target_ipq40xx_gl-a1300)
         python3 setup.py -c configs/config-21.02.2.yml
@@ -86,14 +87,13 @@ case $profile in
         else
             ./scripts/gen_config.py $profile openwrt_common glinet_nas luci  custom
         fi
-		build_firmware $ui ipq40xx
-		copy_file ~/openwrt/bin/targets/*/*
+        build_firmware $ui ipq40xx && copy_file ~/openwrt/bin/targets/*/*
     ;;
     target_mt7981_gl-mt2500|\
     target_mediatek_gl-mt3000)
-		python3 setup.py -c configs/config-mt798x-7.6.6.1.yml
-		ln -s $base/gl-infra-builder/mt7981 ~/openwrt && cd ~/openwrt	
-		if [[ $ui == true  ]]; then
+        python3 setup.py -c configs/config-mt798x-7.6.6.1.yml
+        ln -s $base/gl-infra-builder/mt7981 ~/openwrt && cd ~/openwrt    
+        if [[ $ui == true  ]]; then
             ./scripts/gen_config.py $profile glinet_depends glinet_nas custom
             git clone https://github.com/gl-inet/glinet4.x.git ~/glinet
             if [[ $profile == *mt3000* ]]; then
@@ -104,22 +104,20 @@ case $profile in
         else
             ./scripts/gen_config.py $profile glinet_nas custom
         fi
-		build_firmware $ui mt7981
-		copy_file ~/openwrt/bin/targets/*/*
-	;;
-	target_siflower_gl-sf1200|\
-	target_siflower_gl-sft1200)
-		python3 setup.py -c configs/config-siflower-18.x.yml
-		ln -s $base/gl-infra-builder/openwrt-18.06/siflower/openwrt-18.06 ~/openwrt && cd ~/openwrt
-		./scripts/gen_config.py $profile glinet_nas custom
-		build_firmware
-		copy_file ~/openwrt/bin/targets/*
-	;;
-	target_ramips_gl-mt1300)
-		python3 setup.py -c configs/config-22.03.0.yml
-		ln -s $base/gl-infra-builder/openwrt-22.03/openwrt-22.03.0 ~/openwrt && cd ~/openwrt
-		./scripts/gen_config.py $profile glinet_nas luci custom
-		build_firmware
-		copy_file ~/openwrt/bin/targets/*/*
-	;;
+        build_firmware $ui mt7981 && copy_file ~/openwrt/bin/targets/*/*
+    ;;
+    target_siflower_gl-sf1200|\
+    target_siflower_gl-sft1200)
+        python3 setup.py -c configs/config-siflower-18.x.yml
+        ln -s $base/gl-infra-builder/openwrt-18.06/siflower/openwrt-18.06 ~/openwrt && cd ~/openwrt
+        ./scripts/gen_config.py $profile glinet_nas custom
+        build_firmware && copy_file ~/openwrt/bin/targets/*
+    ;;
+    target_ramips_gl-mt1300)
+        python3 setup.py -c configs/config-22.03.0.yml
+        ln -s $base/gl-infra-builder/openwrt-22.03/openwrt-22.03.0 ~/openwrt && cd ~/openwrt
+        ./scripts/gen_config.py $profile glinet_nas luci custom
+        build_firmware && copy_file ~/openwrt/bin/targets/*/*
+    ;;
 esac
+
