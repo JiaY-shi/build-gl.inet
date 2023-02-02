@@ -11,7 +11,7 @@
 
 ## 仓库说明
 * 本仓库使用的源码基于GL.iNet官方开源仓库[gl-inet/gl-infra-builder](https://github.com/gl-inet/gl-infra-builder)，性能及稳定性请自行测试。
-* GL-AX1800、GL-AXT1800、GL-A1300和GL-MT2500支持官方UI。
+* IPQ6018系列、mt7981系列和GL-A1300支持官方UI。
 * 本仓库可以直接通过github的action编译目标设备固件，也支持本地编译
 * GitHub action编译的固件可以直接在release中下载，也可以在 action工作流中获取，action工作流中也可以获取编译产生的插件。
 
@@ -43,7 +43,7 @@ cd build-gl.inet
 |target_wlan_ap-gl-axt1800-5-4|GL-AXT1800 5.4内核|
 |target_ipq40xx_gl-a1300|GL-A1300|
 |target_mt7981_gl-mt2500|GL-MT2500|
-|target_mediatek_gl-mt3000|GL-MT3000|
+|target_mt7981_gl-mt3000|GL-MT3000|
 |target_siflower_gl-sf1200|GL-SF1200|
 |target_siflower_gl-sft1200|GL-SFT1200|
 |target_ramips_gl-mt1300|GL-MT1300|

@@ -15,13 +15,13 @@ on:
         - target_wlan_ap-gl-axt1800-5-4
         - target_ipq40xx_gl-a1300
         - target_mt7981_gl-mt2500
-        - target_mediatek_gl-mt3000
+        - target_mt7981_gl-mt3000
         - target_siflower_gl-sf1200
         - target_siflower_gl-sft1200
         - target_ramips_gl-mt1300
 
       ui:
-        description: '是否包含官方UI (目前支持IPQ60XX系列、GL-A1300和GL-MT2500)'
+        description: '是否包含官方UI (目前支持IPQ6018系列、mt7981系列和GL-A1300)'
         required: false
         type: boolean
         
