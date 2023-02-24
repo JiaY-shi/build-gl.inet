@@ -19,7 +19,7 @@ if [ ! -n "$profile" ]; then
 fi
 
 if [ ! -n "$ui" ]; then
-        ui=true
+    ui=true
 fi
 echo "Start..."
 
@@ -118,6 +118,19 @@ case $profile in
         ln -s $base/gl-infra-builder/openwrt-22.03/openwrt-22.03.0 ~/openwrt && cd ~/openwrt
         ./scripts/gen_config.py $profile glinet_nas luci custom
         build_firmware && copy_file ~/openwrt/bin/targets/*/*
+    ;;
+    target_ath79_gl-s200)
+        python3 setup.py -c configs/config-21.02.2.yml
+        ln -s $base/gl-infra-builder/openwrt-21.02/openwrt-21.02.2 ~/openwrt && cd ~/openwrt
+        if [[ $ui == true  ]]; then
+            ./scripts/gen_config.py $profile glinet_depends_s200 glinet_nas custom
+            git clone https://github.com/gl-inet/glinet4.x.git ~/glinet
+            cp -rf ~/glinet/pkg_config/gl_pkg_config_ath79_s200.mk ~/glinet/ath79/gl_pkg_config.mk
+            cp -rf ~/glinet/pkg_config/gl_pkg_config_ath79_s200.yml profiles/target_ath79_gl-s200.yml
+        else
+            ./scripts/gen_config.py $profile openwrt_common glinet_nas luci custom
+        fi
+        build_firmware $ui ath79 && copy_file ~/openwrt/bin/targets/*/*
     ;;
 esac
 
