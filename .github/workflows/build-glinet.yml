@@ -3,8 +3,8 @@ name: build gl.inet
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: '请输入TAG'     
+      tag_main:
+        description: '请输入gl-inet/gl-infra-builder TAG'     
         required: true
         default: 'main' 
 
@@ -30,6 +30,11 @@ on:
         description: '是否包含官方UI (目前支持IPQ6018系列、mt7981系列、GL-A1300和GL-S200)'
         required: false
         type: boolean
+      
+      tag_no:
+        description: '请输入gl-inet/glinet4.x TAG'     
+        required: true
+        default: 'main' 
         
 jobs:
   build:
@@ -44,7 +49,7 @@ jobs:
         git config --global user.name "aa"
     - name: make 
       run: |
-        ./build.sh ~ ${{ inputs.device }} ${{ inputs.ui }} ${{ inputs.tag }}
+        ./build.sh ~ ${{ inputs.device }} ${{ inputs.ui }} ${{ inputs.tag_main }} ${{ inputs.tag_no }}
         
     - name: Organize files
       id: organize
