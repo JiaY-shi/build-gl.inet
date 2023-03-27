@@ -3,6 +3,11 @@ name: build gl.inet
 on:
   workflow_dispatch:
     inputs:
+      tag:
+        description: '请输入TAG'     
+        required: true
+        default: 'main' 
+
       device:
         description: '选择设备'     
         required: true
@@ -39,7 +44,7 @@ jobs:
         git config --global user.name "aa"
     - name: make 
       run: |
-        ./build.sh ~ ${{ inputs.device }} ${{ inputs.ui }}
+        ./build.sh ~ ${{ inputs.device }} ${{ inputs.ui }} ${{ inputs.tag }}
         
     - name: Organize files
       id: organize
