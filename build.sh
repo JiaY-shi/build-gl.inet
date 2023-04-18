@@ -58,7 +58,7 @@ function build_firmware(){
     if [[ $need_gl_ui == true  ]]; then 
         make -j$(expr $(nproc) + 1) GL_PKGDIR=~/glinet/$ui_path/ V=s
     else
-        make -j$(expr $(nproc) + 1)  V=s
+        make -j$(expr $(nproc) + 1) V=s
     fi
     return
 }
