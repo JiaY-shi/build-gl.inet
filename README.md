@@ -10,6 +10,7 @@
 * GL-MT1300
 * GL-MT3000
 * GL-S200
+* GL-X300B
 
 ## 仓库说明
 * 本仓库使用的源码基于GL.iNet官方开源仓库[gl-inet/gl-infra-builder](https://github.com/gl-inet/gl-infra-builder)，性能及稳定性请自行测试。
@@ -50,3 +51,4 @@ cd build-gl.inet
 |target_siflower_gl-sft1200|GL-SFT1200|
 |target_ramips_gl-mt1300|GL-MT1300|
 |target_ath79_gl-s200|GL-S200|
+|target_ath79_gl-x300b-nor|GL-X300B|

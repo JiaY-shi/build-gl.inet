@@ -154,5 +154,11 @@ case $profile in
         fi
         build_firmware $ui ath79 && copy_file ~/openwrt/bin/targets/*/*
     ;;
+    target_ath79_gl-x300b-nor)
+        python3 setup.py -c configs/config-22.03.2.yml
+        ln -s $base/gl-infra-builder/openwrt-22.03/openwrt-22.03.2 ~/openwrt && cd ~/openwrt
+        ./scripts/gen_config.py $profile luci custom
+        build_firmware && copy_file ~/openwrt/bin/targets/*/*
+    ;;
 esac
 

@@ -25,6 +25,7 @@ on:
         - target_siflower_gl-sft1200
         - target_ramips_gl-mt1300
         - target_ath79_gl-s200
+        - target_ath79_gl-x300b-nor
 
       ui:
         description: '是否包含官方UI (目前支持IPQ6018系列、mt7981系列、GL-A1300和GL-S200)'
