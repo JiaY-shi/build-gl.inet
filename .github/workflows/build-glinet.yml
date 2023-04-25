@@ -26,9 +26,11 @@ on:
         - target_ramips_gl-mt1300
         - target_ath79_gl-s200
         - target_ath79_gl-x300b-nor
+        - target_mt7981_gl-x3000
+        - target_mt7981_gl-xe3000
 
       ui:
-        description: '是否包含官方UI (目前支持IPQ6018系列、mt7981系列、GL-A1300和GL-S200)'
+        description: '是否包含官方UI (目前仅IPQ6018系列、GL-MT2500、GL-MT3000、GL-A1300和GL-S200支持官方UI)'
         required: false
         type: boolean
       

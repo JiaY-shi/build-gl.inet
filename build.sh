@@ -112,18 +112,23 @@ case $profile in
         build_firmware $ui ipq40xx && copy_file ~/openwrt/bin/targets/*/*
     ;;
     target_mt7981_gl-mt2500|\
-    target_mt7981_gl-mt3000)
+    target_mt7981_gl-mt3000|\
+    target_mt7981_gl-x3000|\
+    target_mt7981_gl-xe3000)
         python3 setup.py -c configs/config-mt798x-7.6.6.1.yml
         ln -s $base/gl-infra-builder/mt7981 ~/openwrt && cd ~/openwrt    
         if [[ $ui == true  ]]; then
             if [[ $profile == *mt3000* ]]; then
                 cp ~/glinet/pkg_config/gl_pkg_config_mt3000.mk  ~/glinet/mt7981/gl_pkg_config.mk
                 cp ~/glinet/pkg_config/glinet_depends_mt3000.yml  ./profiles/glinet_depends.yml
-            else
+                ./scripts/gen_config.py glinet_depends custom
+            elif [[ $profile == *mt2500* ]]; then
                 cp ~/glinet/pkg_config/gl_pkg_config_mt2500.mk  ~/glinet/mt7981/gl_pkg_config.mk
                 cp ~/glinet/pkg_config/glinet_depends_mt2500.yml  ./profiles/glinet_depends.yml
+                ./scripts/gen_config.py glinet_depends custom
+            else
+                ./scripts/gen_config.py $profile glinet_nas custom
             fi
-            ./scripts/gen_config.py glinet_depends custom
         else
             ./scripts/gen_config.py $profile glinet_nas custom
         fi
