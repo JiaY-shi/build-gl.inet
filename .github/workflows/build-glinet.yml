@@ -26,6 +26,9 @@ on:
         - target_ramips_gl-mt1300
         - target_ath79_gl-s200
         - target_ath79_gl-x300b-nor
+        - target_ath79_gl-x300b-nor-nand
+        - target_ath79_gl-ar300m-nand
+        - target_ath79_gl-ar300m-nor
         - target_mt7981_gl-x3000
         - target_mt7981_gl-xe3000
 

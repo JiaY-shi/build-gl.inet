@@ -11,6 +11,7 @@
 * GL-MT3000
 * GL-S200
 * GL-X300B
+* GL-AR300M
 * GL-X3000
 * GL-XE3000
 
@@ -54,5 +55,9 @@ cd build-gl.inet
 |target_ramips_gl-mt1300|GL-MT1300|
 |target_ath79_gl-s200|GL-S200|
 |target_ath79_gl-x300b-nor|GL-X300B|
+|target_ath79_gl-x300b-nor-nand|GL-X300B(nand)|
+|target_ath79_gl-x300b-nor|GL-X300B(nor)|
+|target_ath79_gl-ar300m-nand|GL-AR300M(nand)|
+|target_ath79_gl-ar300m-nor|GL-X300B(nor)|
 |target_mt7981_gl-x3000|GL-X3000|
 |target_mt7981_gl-xe3000|GL-XE3000|
