@@ -99,18 +99,6 @@ case $profile in
         fi
         build_firmware $ui ipq60xx && copy_file ~/openwrt/bin/targets/*/*
     ;;
-    target_ipq40xx_gl-a1300)
-        python3 setup.py -c configs/config-21.02.2.yml
-        ln -s $base/gl-infra-builder/openwrt-21.02/openwrt-21.02.2 ~/openwrt && cd ~/openwrt
-        if [[ $ui == true  ]]; then
-            cp ~/glinet/pkg_config/gl_pkg_config_a1300.mk  ~/glinet/ipq40xx/gl_pkg_config.mk
-            cp ~/glinet/pkg_config/glinet_depends_a1300.yml  ./profiles/glinet_depends.yml
-            ./scripts/gen_config.py glinet_depends custom
-        else
-            ./scripts/gen_config.py $profile openwrt_common glinet_nas luci  custom
-        fi
-        build_firmware $ui ipq40xx && copy_file ~/openwrt/bin/targets/*/*
-    ;;
     target_mt7981_gl-mt2500|\
     target_mt7981_gl-mt3000|\
     target_mt7981_gl-x3000|\
@@ -141,28 +129,35 @@ case $profile in
         ./scripts/gen_config.py $profile glinet_nas custom
         build_firmware && copy_file ~/openwrt/bin/targets/*
     ;;
-    target_ramips_gl-mt1300)
-        python3 setup.py -c configs/config-22.03.0.yml
-        ln -s $base/gl-infra-builder/openwrt-22.03/openwrt-22.03.0 ~/openwrt && cd ~/openwrt
-        ./scripts/gen_config.py $profile glinet_nas luci custom
-        build_firmware && copy_file ~/openwrt/bin/targets/*/*
-    ;;
-    target_ath79_gl-s200)
+    target_ath79_gl-s200|\
+    target_ipq40xx_gl-a1300)
+        ui_path=
         python3 setup.py -c configs/config-21.02.2.yml
         ln -s $base/gl-infra-builder/openwrt-21.02/openwrt-21.02.2 ~/openwrt && cd ~/openwrt
         if [[ $ui == true  ]]; then
-            cp -rf ~/glinet/pkg_config/gl_pkg_config_ath79_s200.mk ~/glinet/ath79/gl_pkg_config.mk
-            cp -rf ~/glinet/pkg_config/gl_pkg_config_ath79_s200.yml ./profiles/
-            ./scripts/gen_config.py $profile gl_pkg_config_ath79_s200 custom
+            if [[ $profile == *s200* ]]; then
+                cp -rf ~/glinet/pkg_config/gl_pkg_config_ath79_s200.mk ~/glinet/ath79/gl_pkg_config.mk
+                cp -rf ~/glinet/pkg_config/gl_pkg_config_ath79_s200.yml ./profiles/
+                ./scripts/gen_config.py $profile gl_pkg_config_ath79_s200 custom
+                ui_path=ath79
+            elif [[ $profile == *a1300* ]]; then
+                cp ~/glinet/pkg_config/gl_pkg_config_a1300.mk  ~/glinet/ipq40xx/gl_pkg_config.mk
+                cp ~/glinet/pkg_config/glinet_depends_a1300.yml  ./profiles/glinet_depends.yml
+                ./scripts/gen_config.py glinet_depends custom
+                ui_path=ipq40xx
+            else
+                ./scripts/gen_config.py $profile openwrt_common glinet_nas luci custom
+            fi
         else
             ./scripts/gen_config.py $profile openwrt_common glinet_nas luci custom
         fi
-        build_firmware $ui ath79 && copy_file ~/openwrt/bin/targets/*/*
+        build_firmware $ui $ui_path && copy_file ~/openwrt/bin/targets/*/*
     ;;
     target_ath79_gl-ar300m-nor|\
     target_ath79_gl-ar300m-nand|\
     target_ath79_gl-x300b-nor|\
-    target_ath79_gl-x300b-nor-nand)
+    target_ath79_gl-x300b-nor-nand|\
+    target_ramips_gl-mt1300)
         python3 setup.py -c configs/config-22.03.4.yml
         ln -s $base/gl-infra-builder/openwrt-22.03/openwrt-22.03.4 ~/openwrt && cd ~/openwrt
         ./scripts/gen_config.py $profile luci custom
