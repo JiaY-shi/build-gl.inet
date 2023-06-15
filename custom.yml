@@ -1,23 +1,79 @@
+---
+profile: glinet_axt1800
+target: ipq807x
+subtarget: ipq60xx
+description: Build image for the GL.iNET AXT1800
+image: bin/targets/ipq807x/ipq60xx/openwrt-ipq807x-glinet_axt1800-squashfs-sysupgrade.tar
 feeds:
-  - name: custom
-    path: ../feeds_dir/custom
-  - name: helloworld
-    uri: https://github.com/fw876/helloworld.git
-    branch: master
+  - name: gl_feeds_wlanap
+    uri: https://github.com/gl-inet/gl-feeds.git
+    revision: 5df1bae20bf4f2bd39168707e6363bcf8bdf5f29
+  - name: ipq807x
+    path: ../../feeds/ipq807x
+  - name: wifi_ax
+    path: ../../feeds/wifi-ax
+  - name: gl_feeds_common
+    uri: https://github.com/gl-inet/gl-feeds.git
+    revision: 3436df0c1a5a3e7d3552d2f8d0cc2b449a421ad4
+  - name: luci
+    uri: https://github.com/openwrt/luci.git
+    revision: 1c3b32dc1bec15e3076a447762b1c4f94eb75fb7
+  - name: immortalwrt_luci
+    uri: https://github.com/immortalwrt/luci.git
+    branch: openwrt-21.02
+    revision: adfcac037ae5075d183bbb9e407a0ef908849cfe
+  - name: NueXini_Packages
+    uri: https://github.com/NueXini/NueXini_Packages.git
+    branch: main
+    revision: 5334053fab7ca23af487254b0b5c348b1fc7cdf1
+include: []
 packages:
-  - luci-app-ssr-plus
-  - luci-app-ddns
-  - ddns-scripts
-  - ddns-scripts-services
-  - ddns-scripts_aliyun
-  - luci-app-uhttpd
-  - dnsmasq-full
-  - luci-app-commands
-  - luci-app-mwan3
-  - luci-app-wireguard
-  - wireguard
+  - kmod-hwmon-pwmfan
+  - kmod-gl-sdk4-fan
+  - wireless-regdb
+  - wget-ssl
+  - kmod-wireguard-backport
+  - wpad-openssl
+  - kmod-usb-ledtrig-usbport
+  - kmod-usb-net-cdc-mbim
+  - kmod-usb-net-sierrawireless
+  - usbutils
+  - minicom
+  - procps-ng
+  - procps-ng-ps
+  - grep
+  - lsblk
+  - fdisk
+  - cfdisk
+  - luci-app-netdata
+  - luci-app-ttyd
+  - luci-app-nlbwmon
+  - luci-app-wrtbwmon
+  - luci-app-diskman
+  - luci-app-watchcat
+  - luci-app-ramfree
   - luci-app-eqos
-  - wireguard-tools
+  - luci-app-accesscontrol
+  - luci-app-arpbind
+  - luci-app-upnp
+  - luci-app-firewall
+  - luci-app-ddns
+  - luci-app-wol
+  - luci-app-autoreboot
+  - luci-app-commands
+  - luci-app-sms-tool
+  - luci-app-fileassistant
+  - luci-theme-argon
+  - luci-app-argon-config
+  - luci-app-openclash
+  - luci-app-zerotier
+  - luci-app-openvpn
+  - luci-app-unblockmusic
+  - luci-app-pushbot
+  - luci-app-aliyundrive-webdav
+  - luci-app-turboacc
+  - luci-app-ssr
+  - luci-app-passwall
 
 
 
